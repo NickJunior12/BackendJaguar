@@ -7,3 +7,5 @@ public/uploadsBanners/*.jpeg
 public/uploadsNoticias/*.png
 public/uploadsNoticias/*.jpg
 public/uploadsNoticias/*.jpeg
+
+dist/uploadsNoticias/
