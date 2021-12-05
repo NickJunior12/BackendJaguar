@@ -1,0 +1,9 @@
+node_modules/
+
+public/uploadsBanners/*.png
+public/uploadsBanners/*.jpg
+public/uploadsBanners/*.jpeg
+
+public/uploadsNoticias/*.png
+public/uploadsNoticias/*.jpg
+public/uploadsNoticias/*.jpeg
