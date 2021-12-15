@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubirBanner = exports.SubirArchivo = void 0;
+exports.SubirBanner = exports.BorrarImagen = exports.SubirArchivo = void 0;
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
+const fs_1 = __importDefault(require("fs"));
 const SubirArchivo = (id, files, carpeta = '') => {
     return new Promise((resolve, reject) => {
         const { noticiaImagen } = files;
@@ -28,6 +29,18 @@ const SubirArchivo = (id, files, carpeta = '') => {
     });
 };
 exports.SubirArchivo = SubirArchivo;
+const BorrarImagen = (nombre, carpeta = '') => {
+    return new Promise((resolve, reject) => {
+        const pathBorrar = path_1.default.join(__dirname, '../../public/', carpeta, '/', nombre);
+        console.log(pathBorrar);
+        if (fs_1.default.existsSync(pathBorrar)) {
+            console.log('si existe y voy a borrarlo');
+            fs_1.default.unlinkSync(pathBorrar);
+        }
+        resolve(pathBorrar);
+    });
+};
+exports.BorrarImagen = BorrarImagen;
 const SubirBanner = (files, carpeta = '') => {
     return new Promise((resolve, reject) => {
         const { bannerImg } = files;

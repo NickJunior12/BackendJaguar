@@ -1,6 +1,6 @@
 import { Request, response, Response } from "express";
 import fileUpload from 'express-fileupload';
-import { SubirArchivo, SubirBanner } from '../helpers/subir-archivo';
+import { SubirArchivo, SubirBanner, BorrarImagen } from '../helpers/subir-archivo';
 import Noticia from '../models/notis';
 import Banner from '../models/banner-model';
 
@@ -96,5 +96,20 @@ export const getBanners = async( req: Request, res: Response) =>{
   const banners = await Banner.findAll();
 
   res.json({banners});
+}
+
+export const borrarBanners = async( req: Request, res: Response) =>{
+  const {nombreBanner} =req.body;
+  console.log(nombreBanner);
+
+  try{
+    const resp = await BorrarImagen(nombreBanner,'uploadsBanners');
+
+    res.json({msg:'Borrado exitosamente '+nombreBanner});
+  }catch(msg){
+          res.status(400).json(msg);
+      }
+
+  
 }
 

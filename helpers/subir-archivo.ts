@@ -1,5 +1,6 @@
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import fs from 'fs';
 
 export const SubirArchivo = (id: any, files: any, carpeta = '' ) => {
 
@@ -26,6 +27,20 @@ console.log(uploadPath);
           resolve(nombreTempo);
         });
     });
+}
+
+export const BorrarImagen = (nombre: string, carpeta = '') =>{
+
+    return new Promise( (resolve, reject) => {
+    const pathBorrar = path.join(__dirname, '../../public/',carpeta,'/', nombre);
+    console.log(pathBorrar);
+    if( fs.existsSync(pathBorrar) ){
+        console.log('si existe y voy a borrarlo');
+        fs.unlinkSync( pathBorrar );
+    }
+        resolve(pathBorrar);
+    });
+
 }
 
 export const SubirBanner = (files: any, carpeta = '' ) => {
