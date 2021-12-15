@@ -93,18 +93,46 @@ export const uploadBanner = async( req: Request, res: Response) => {
 
 export const getBanners = async( req: Request, res: Response) =>{
 
-  const banners = await Banner.findAll();
+  const banners = await Banner.findAll({
+    where: {
+      activo: 1
+    },
+    order:[
+      ['id','DESC']
+    ]
+  });
 
   res.json({banners});
+
+  
 }
 
 export const borrarBanners = async( req: Request, res: Response) =>{
+
+  const {id} =req.params;
   const {nombreBanner} =req.body;
   console.log(nombreBanner);
 
   try{
-    const resp = await BorrarImagen(nombreBanner,'uploadsBanners');
+    
 
+    const banner = await Banner.findByPk(id);
+        console.log(banner);
+
+        if( !banner ){
+          return res.status(404).json({
+              msg:'No existe la noticia'
+          })
+      }
+
+      const resp = await BorrarImagen(nombreBanner,'uploadsBanners');
+
+    const bodyUpdate = {
+      id,
+      activo: 0
+    }
+
+   await banner.update( bodyUpdate );
     res.json({msg:'Borrado exitosamente '+nombreBanner});
   }catch(msg){
           res.status(400).json(msg);

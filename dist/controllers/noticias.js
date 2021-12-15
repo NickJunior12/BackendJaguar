@@ -16,7 +16,14 @@ exports.login = exports.actualizarNoticia = exports.nuevaNoticia = exports.getNo
 const notis_1 = __importDefault(require("../models/notis"));
 const user_model_1 = __importDefault(require("../models/user-model"));
 const getNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const notis = yield notis_1.default.findAll();
+    const notis = yield notis_1.default.findAll({
+        where: {
+            activado: 1
+        },
+        order: [
+            ['id', 'DESC']
+        ]
+    });
     res.json({ notis });
 });
 exports.getNoticias = getNoticias;

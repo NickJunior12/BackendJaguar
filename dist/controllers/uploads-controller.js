@@ -83,15 +83,35 @@ const uploadBanner = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.uploadBanner = uploadBanner;
 const getBanners = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const banners = yield banner_model_1.default.findAll();
+    const banners = yield banner_model_1.default.findAll({
+        where: {
+            activo: 1
+        },
+        order: [
+            ['id', 'DESC']
+        ]
+    });
     res.json({ banners });
 });
 exports.getBanners = getBanners;
 const borrarBanners = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
     const { nombreBanner } = req.body;
     console.log(nombreBanner);
     try {
+        const banner = yield banner_model_1.default.findByPk(id);
+        console.log(banner);
+        if (!banner) {
+            return res.status(404).json({
+                msg: 'No existe la noticia'
+            });
+        }
         const resp = yield (0, subir_archivo_1.BorrarImagen)(nombreBanner, 'uploadsBanners');
+        const bodyUpdate = {
+            id,
+            activo: 0
+        };
+        yield banner.update(bodyUpdate);
         res.json({ msg: 'Borrado exitosamente ' + nombreBanner });
     }
     catch (msg) {

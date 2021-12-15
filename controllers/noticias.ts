@@ -4,7 +4,14 @@ import Usuario from '../models/user-model';
 
 export const getNoticias = async( req: Request, res: Response) =>{
 
-    const notis = await Noticia.findAll();
+    const notis = await Noticia.findAll({
+        where:{
+            activado: 1
+        },
+        order: [
+            ['id','DESC']
+        ]
+    });
 
     res.json(
         {notis}
