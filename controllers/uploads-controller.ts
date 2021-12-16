@@ -1,8 +1,10 @@
 import { Request, response, Response } from "express";
 import fileUpload from 'express-fileupload';
-import { SubirArchivo, SubirBanner, BorrarImagen } from '../helpers/subir-archivo';
+import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary } from '../helpers/subir-archivo';
 import Noticia from '../models/notis';
 import Banner from '../models/banner-model';
+
+
 
 // export const mostrarImagen = async( req: Request, res: Response)=> {
 
@@ -72,7 +74,7 @@ export const uploadBanner = async( req: Request, res: Response) => {
 
       try{
 
-
+console.log(req.files.bannerImg);
           const nombreImagen = await SubirBanner( req.files, 'uploadsBanners' );
 
           const bannerBody = {
@@ -89,6 +91,66 @@ export const uploadBanner = async( req: Request, res: Response) => {
       }catch(msg){
           res.status(400).json(msg);
       }
+}
+
+export const uploadNoticiaCloudinary = async( req: Request, res: Response) => {
+
+  const {id} =req.params;
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.noticiaImagen) {
+      return res.status(400).json('No hay archivos para subir.');
+    }
+
+    try{
+      const noticia = await Noticia.findByPk(id);
+      console.log(noticia);
+
+      if( !noticia ){
+          return res.status(404).json({
+              msg:'No existe la noticia'
+          })
+      }
+
+        const nombreImagen = await SubirNoticiaCloudinary( req.files );
+        
+        const bodyUpdate = {
+          imagen: nombreImagen,
+          id
+          }
+
+       await noticia.update( bodyUpdate );
+        res.json({ msg: nombreImagen, msg2: noticia });
+
+    }catch(msg){
+        res.status(400).json(msg);
+    }
+}
+
+export const uploadBannerCloudinary = async( req: Request, res: Response) => {
+
+
+  if (!req.files || Object.keys(req.files).length === 0 || !req.files.bannerImg) {
+    return res.status(400).json('No hay archivos para subir.');
+  }
+
+  try{
+      const nombreImagen = await SubirBannerCloudinary( req.files );
+      console.log('se recupera la respuesta de SubirBannerCloudinary')
+      console.log(nombreImagen);
+      const bannerBody = {
+        archivo: nombreImagen,
+        ubicacion: nombreImagen,
+        orden: 1,
+        activo: 1
+        }
+      console.log(bannerBody);
+      const banner = Banner.build(bannerBody);
+      await banner.save();
+      res.json({ msg: nombreImagen, msg2: banner });
+
+  }catch(msg){
+      res.status(400).json(msg);
+  }
 }
 
 export const getBanners = async( req: Request, res: Response) =>{

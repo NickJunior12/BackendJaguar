@@ -1,6 +1,12 @@
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs';
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'dcjspxg4i', 
+  api_key: '512599969441776', 
+  api_secret: 'PLbU7vJmaMVm4brIk1PN7UmZf8E' 
+});
 
 export const SubirArchivo = (id: any, files: any, carpeta = '' ) => {
 
@@ -68,4 +74,35 @@ export const SubirBanner = (files: any, carpeta = '' ) => {
           resolve(nombreTempo);
         });
     });
+}
+
+export const SubirBannerCloudinary = async (files: any, carpeta = '' ) => {
+
+
+
+        const{ bannerImg } = files;
+        console.log(bannerImg);
+        const tempPath = bannerImg.tempFilePath;
+        console.log(tempPath);
+        const {secure_url} = await cloudinary.uploader.upload(tempPath);
+        console.log('imprimir respuesta de cloudinary');
+        console.log(secure_url);
+       
+        return secure_url;
+    
+}
+
+export const SubirNoticiaCloudinary = async (files: any ) => {
+
+
+
+    const{ noticiaImagen } = files;
+    
+    const tempPath = noticiaImagen.tempFilePath;
+    
+    const {secure_url} = await cloudinary.uploader.upload(tempPath);
+    
+   
+    return secure_url;
+
 }

@@ -1,12 +1,27 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubirBanner = exports.BorrarImagen = exports.SubirArchivo = void 0;
+exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.SubirBanner = exports.BorrarImagen = exports.SubirArchivo = void 0;
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
 const fs_1 = __importDefault(require("fs"));
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: 'dcjspxg4i',
+    api_key: '512599969441776',
+    api_secret: 'PLbU7vJmaMVm4brIk1PN7UmZf8E'
+});
 const SubirArchivo = (id, files, carpeta = '') => {
     return new Promise((resolve, reject) => {
         const { noticiaImagen } = files;
@@ -63,4 +78,22 @@ const SubirBanner = (files, carpeta = '') => {
     });
 };
 exports.SubirBanner = SubirBanner;
+const SubirBannerCloudinary = (files, carpeta = '') => __awaiter(void 0, void 0, void 0, function* () {
+    const { bannerImg } = files;
+    console.log(bannerImg);
+    const tempPath = bannerImg.tempFilePath;
+    console.log(tempPath);
+    const { secure_url } = yield cloudinary.uploader.upload(tempPath);
+    console.log('imprimir respuesta de cloudinary');
+    console.log(secure_url);
+    return secure_url;
+});
+exports.SubirBannerCloudinary = SubirBannerCloudinary;
+const SubirNoticiaCloudinary = (files) => __awaiter(void 0, void 0, void 0, function* () {
+    const { noticiaImagen } = files;
+    const tempPath = noticiaImagen.tempFilePath;
+    const { secure_url } = yield cloudinary.uploader.upload(tempPath);
+    return secure_url;
+});
+exports.SubirNoticiaCloudinary = SubirNoticiaCloudinary;
 //# sourceMappingURL=subir-archivo.js.map

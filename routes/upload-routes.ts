@@ -1,10 +1,10 @@
 import {Router} from 'express';
-import { uploadNoticia, uploadBanner, getBanners, borrarBanners } from '../controllers/uploads-controller';
+import { uploadNoticia, uploadBanner, getBanners, borrarBanners, uploadBannerCloudinary,uploadNoticiaCloudinary } from '../controllers/uploads-controller';
 
 const router = Router();
 
-router.post('/noticia/:id', uploadNoticia);
-router.post('/banner', uploadBanner);
+router.post('/noticia/:id', uploadNoticiaCloudinary);
+router.post('/banner', uploadBannerCloudinary);
 router.get('/get-banners', getBanners);
 router.post('/borrar/:id', borrarBanners)
 
