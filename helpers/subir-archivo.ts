@@ -49,6 +49,18 @@ export const BorrarImagen = (nombre: string, carpeta = '') =>{
 
 }
 
+export const BorrarImagenCloudinary=async(nombreBanner: string)=>{
+
+    const nombre = nombreBanner.split('/');
+    const nom = nombre[nombre.length-1];
+    const [ public_id ] = nom.split('.');
+
+    console.log(public_id);
+
+    cloudinary.uploader.destroy(public_id);
+
+}
+
 export const SubirBanner = (files: any, carpeta = '' ) => {
 
     return new Promise( (resolve, reject) => {

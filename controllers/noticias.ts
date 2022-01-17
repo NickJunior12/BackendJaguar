@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Noticia from '../models/notis';
 import Usuario from '../models/user-model';
+import { Sequelize, Op } from 'sequelize';
 
 export const getNoticias = async( req: Request, res: Response) =>{
 
@@ -29,6 +30,28 @@ export const getNoticia = async( req: Request, res: Response) =>{
     else{
         res.status(404).json
         ({ msg: `No existe la noticia con ese id ${ id }`})
+    }
+}
+
+export const findNoticiaText = async( req: Request, res: Response) =>{
+
+    
+    const {body} = req;
+
+    const notis = await Noticia.findAll({
+        where: {
+            titulo: {
+                [Op.substring]: body.buscador
+            }
+        }
+    });
+
+    if( notis ){
+        res.json({notis});
+    }
+    else{
+        res.status(404).json
+        ({ msg: `No existe la noticia con el texto buscado ${ body.buscador }`})
     }
 }
 

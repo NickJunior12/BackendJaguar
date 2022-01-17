@@ -1,6 +1,6 @@
 import { Request, response, Response } from "express";
 import fileUpload from 'express-fileupload';
-import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary } from '../helpers/subir-archivo';
+import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary, BorrarImagenCloudinary } from '../helpers/subir-archivo';
 import Noticia from '../models/notis';
 import Banner from '../models/banner-model';
 
@@ -202,4 +202,39 @@ export const borrarBanners = async( req: Request, res: Response) =>{
 
   
 }
+
+export const borrarBannersCloudinary = async( req: Request, res: Response) =>{
+
+  const {id} =req.params;
+  const {nombreBanner} =req.body;
+  console.log(nombreBanner);
+
+  try{
+    
+
+    const banner = await Banner.findByPk(id);
+        console.log(banner);
+
+        if( !banner ){
+          return res.status(404).json({
+              msg:'No existe la noticia'
+          })
+      }
+
+      BorrarImagenCloudinary(nombreBanner);
+
+    const bodyUpdate = {
+      id,
+      activo: 0
+    }
+
+   await banner.update( bodyUpdate );
+    res.json({msg:'Borrado exitosamente '+nombreBanner});
+  }catch(msg){
+          res.status(400).json(msg);
+      }
+
+  
+}
+
 

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.SubirBanner = exports.BorrarImagen = exports.SubirArchivo = void 0;
+exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.SubirBanner = exports.BorrarImagenCloudinary = exports.BorrarImagen = exports.SubirArchivo = void 0;
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
 const fs_1 = __importDefault(require("fs"));
@@ -56,6 +56,14 @@ const BorrarImagen = (nombre, carpeta = '') => {
     });
 };
 exports.BorrarImagen = BorrarImagen;
+const BorrarImagenCloudinary = (nombreBanner) => __awaiter(void 0, void 0, void 0, function* () {
+    const nombre = nombreBanner.split('/');
+    const nom = nombre[nombre.length - 1];
+    const [public_id] = nom.split('.');
+    console.log(public_id);
+    cloudinary.uploader.destroy(public_id);
+});
+exports.BorrarImagenCloudinary = BorrarImagenCloudinary;
 const SubirBanner = (files, carpeta = '') => {
     return new Promise((resolve, reject) => {
         const { bannerImg } = files;

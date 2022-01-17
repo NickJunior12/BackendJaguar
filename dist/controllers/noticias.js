@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.actualizarNoticia = exports.nuevaNoticia = exports.getNoticia = exports.getNoticias = void 0;
+exports.login = exports.actualizarNoticia = exports.nuevaNoticia = exports.findNoticiaText = exports.getNoticia = exports.getNoticias = void 0;
 const notis_1 = __importDefault(require("../models/notis"));
 const user_model_1 = __importDefault(require("../models/user-model"));
+const sequelize_1 = require("sequelize");
 const getNoticias = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const notis = yield notis_1.default.findAll({
         where: {
@@ -38,6 +39,23 @@ const getNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getNoticia = getNoticia;
+const findNoticiaText = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    const notis = yield notis_1.default.findAll({
+        where: {
+            titulo: {
+                [sequelize_1.Op.substring]: body.buscador
+            }
+        }
+    });
+    if (notis) {
+        res.json({ notis });
+    }
+    else {
+        res.status(404).json({ msg: `No existe la noticia con el texto buscado ${body.buscador}` });
+    }
+});
+exports.findNoticiaText = findNoticiaText;
 const nuevaNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {

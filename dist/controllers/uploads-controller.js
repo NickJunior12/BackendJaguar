@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.borrarBanners = exports.getBanners = exports.uploadBannerCloudinary = exports.uploadNoticiaCloudinary = exports.uploadBanner = exports.uploadNoticia = void 0;
+exports.borrarBannersCloudinary = exports.borrarBanners = exports.getBanners = exports.uploadBannerCloudinary = exports.uploadNoticiaCloudinary = exports.uploadBanner = exports.uploadNoticia = void 0;
 const subir_archivo_1 = require("../helpers/subir-archivo");
 const notis_1 = __importDefault(require("../models/notis"));
 const banner_model_1 = __importDefault(require("../models/banner-model"));
@@ -170,4 +170,29 @@ const borrarBanners = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.borrarBanners = borrarBanners;
+const borrarBannersCloudinary = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const { nombreBanner } = req.body;
+    console.log(nombreBanner);
+    try {
+        const banner = yield banner_model_1.default.findByPk(id);
+        console.log(banner);
+        if (!banner) {
+            return res.status(404).json({
+                msg: 'No existe la noticia'
+            });
+        }
+        (0, subir_archivo_1.BorrarImagenCloudinary)(nombreBanner);
+        const bodyUpdate = {
+            id,
+            activo: 0
+        };
+        yield banner.update(bodyUpdate);
+        res.json({ msg: 'Borrado exitosamente ' + nombreBanner });
+    }
+    catch (msg) {
+        res.status(400).json(msg);
+    }
+});
+exports.borrarBannersCloudinary = borrarBannersCloudinary;
 //# sourceMappingURL=uploads-controller.js.map
