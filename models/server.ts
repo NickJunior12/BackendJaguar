@@ -5,6 +5,7 @@ import fileUpload from 'express-fileupload'
 import * as noticiasRoutes from '../routes/noticia';
 import * as usuariosRoutes from '../routes/user-routes';
 import * as uploadsRoutes from '../routes/upload-routes';
+import * as soffidRoutes from '../routes/soffid-routes';
 
 import db from '../db/connection';
 
@@ -15,7 +16,8 @@ class Server {
     private apis = {
         noticias: '/api/nots',
         users: '/api/users',
-        uploads: '/api/uploads'
+        uploads: '/api/uploads',
+        soffid: '/api/soffid'
     }
 
     constructor() {
@@ -57,7 +59,8 @@ class Server {
     routes(){
         this.app.use( this.apis.noticias, noticiasRoutes.default ),
         this.app.use( this.apis.users, usuariosRoutes.default ),
-        this.app.use( this.apis.uploads, uploadsRoutes.default )
+        this.app.use( this.apis.uploads, uploadsRoutes.default ),
+        this.app.use( this.apis.soffid, soffidRoutes.default)
     }
 
     listen() {

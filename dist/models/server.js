@@ -37,13 +37,15 @@ const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const noticiasRoutes = __importStar(require("../routes/noticia"));
 const usuariosRoutes = __importStar(require("../routes/user-routes"));
 const uploadsRoutes = __importStar(require("../routes/upload-routes"));
+const soffidRoutes = __importStar(require("../routes/soffid-routes"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
         this.apis = {
             noticias: '/api/nots',
             users: '/api/users',
-            uploads: '/api/uploads'
+            uploads: '/api/uploads',
+            soffid: '/api/soffid'
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -75,7 +77,8 @@ class Server {
     routes() {
         this.app.use(this.apis.noticias, noticiasRoutes.default),
             this.app.use(this.apis.users, usuariosRoutes.default),
-            this.app.use(this.apis.uploads, uploadsRoutes.default);
+            this.app.use(this.apis.uploads, uploadsRoutes.default),
+            this.app.use(this.apis.soffid, soffidRoutes.default);
     }
     listen() {
         this.app.listen(this.port, () => {
