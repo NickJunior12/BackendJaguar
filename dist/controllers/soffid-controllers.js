@@ -27,7 +27,10 @@ const Token = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     console.log('Se recibe el code: ' + body.code);
     // tslint:disable-next-line:no-shadowed-variable
-    (0, conntect_soffid_1.GetToken)(body.code).then((response) => { console.log("Ya recibi en controller: " + response); res.json({ response }); });
+    (0, conntect_soffid_1.GetToken)(body.code).then((response) => {
+        console.log("Ya recibi en controller: " + response);
+        res.json({ response });
+    });
     // console.log("Resp Controller");
     // console.log(resp);
     // res.json({resp});

@@ -26,7 +26,9 @@ export const Token = async( req: Request, res: Response) => {
     console.log('Se recibe el code: '+body.code);
 
     // tslint:disable-next-line:no-shadowed-variable
-    GetToken(body.code).then((response)=>{console.log("Ya recibi en controller: "+response);res.json({response});});
+    GetToken(body.code).then((response)=>{
+        console.log("Ya recibi en controller: "+response);res.json({response});
+    });
 
     // console.log("Resp Controller");
     // console.log(resp);
