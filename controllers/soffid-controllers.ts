@@ -1,9 +1,10 @@
 import { Request, response, Response } from "express";
-import { ConnetSoffid, AuthorizationSoffid, TokenSoffid } from '../helpers/conntect-soffid';
+import { ConnetSoffid, GetToken, TokenSoffid } from '../helpers/conntect-soffid';
+import axios from "axios";
 
 export const ConnectSoffidPaso1 = async( req: Request, res: Response) =>{
 
-    const token = await ConnetSoffid('usuario');
+    const token = await ConnetSoffid();
 
     res.json(
         {token}
@@ -12,7 +13,7 @@ export const ConnectSoffidPaso1 = async( req: Request, res: Response) =>{
 
 export const AuthSoffid = async( req: Request, res: Response) => {
 
-    const resp = await AuthorizationSoffid('','');
+    const resp = await GetToken('');
 
     console.log('controller: ');
     console.log(resp);
@@ -22,13 +23,15 @@ export const AuthSoffid = async( req: Request, res: Response) => {
 export const Token = async( req: Request, res: Response) => {
 
     const { body } = req;
-    console.log('code: '+body.code);
-    console.log('nonce: '+body.nonce);
+    console.log('Se recibe el code: '+body.code);
 
-    const resp = await TokenSoffid(body.code, body.nonce);
+    // tslint:disable-next-line:no-shadowed-variable
+    GetToken(body.code).then((response)=>{console.log("Ya recibi en controller: "+response);res.json({response});});
 
-    console.log(resp);
+    // console.log("Resp Controller");
+    // console.log(resp);
 
-    res.json({resp});
+    // res.json({resp});
+
 
 }

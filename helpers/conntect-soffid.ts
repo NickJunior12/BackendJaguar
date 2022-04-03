@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
+import axios from "axios";
+import qs  from "qs";
 
-export const ConnetSoffid = async (usuario: any) =>{
+export const ConnetSoffid = async () =>{
 
     const response = await fetch('https://api.github.com/users/github');
     const data = await response.json();
@@ -9,7 +11,7 @@ export const ConnetSoffid = async (usuario: any) =>{
     return data;
 }
 
-export const TokenSoffid = async(code:any, nonce: any) => {
+export const TokenSoffid = async() => {
 
   const str = "hunbeh.jaguar-ep.com:Kiol4762";
   const buff = Buffer.from(str, 'utf-8');
@@ -18,42 +20,105 @@ export const TokenSoffid = async(code:any, nonce: any) => {
   console.log('validamos el base 64 de usuario y contrasenia');
   console.log(base64);
 
+  // 'grant_type=authorization_code&code=1Zf7O3A2/7HF0wZ3EKgDnPqeDZmDzLhM4WCh4Kb5YvAkpOT+'
 
-  const response = await fetch("https://hunbeh.jaguar-ep.com/token", {
-    method: 'POST', // *GET, POST, PUT, DELETE
+  const response = await fetch("https://idp.jaguar-ep.com/token", {
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-      "Authorization": 'Basic ' + base64
+      'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
     },
-    
-    body: JSON.stringify("{'grant_type': 'authorization_code', 'code': '"+code+"' }") 
-  });
+    body: 'grant_type=authorization_code&code=urqEnPHeKW6LVRQGvxgU8t0TfwEhjx4mKEdvY+68dQX7ZSoY'
+    });
 
   console.log('Obtención del response directo del servicio');
   console.log(response);
 
+  console.log('Response body');
+  console.log(response.body);
+
+  console.log('Response header');
+  console.log(response.headers);
+
+  console.log('Response status');
+  console.log(response.status);
+
   return response;
 }
 
-export const AuthorizationSoffid = async (usuario: any, pass: any) => {
+export const GetToken = async (code:string) => {
 
-    const response = await fetch("https://hunbeh.jaguar-ep.com/openidresponse", {
-        method: 'POST', // *GET, POST, PUT, DELETE
-        
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json',
-          "Authorization": 'Basic dGVzdDp0ZXN0'
-          
-        },
-        
-        body: JSON.stringify("{'username':'xxx', 'password': 'xxx'}") 
-      });
 
-      console.log('Obtención del response directo del servicio');
-      console.log(response);
+  const TokenJwt = await axios({
+    method: 'post',
+    url: 'https://idp.jaguar-ep.com/token',
+    headers: {
+      'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: 'grant_type=authorization_code&code='+code
+  })
+  .then((response) => {
+    const resp = JSON.stringify(response.data);
+        console.log("Nueva respuesta");
+        console.log(resp);
+        console.log("Despues de la resp");
+        return resp;
+  })
+  .catch((error) => {
+    console.log("Error nuevo");
+    console.log(error);
+    console.log("Despues del error");
+    return error;
+  });
 
-      return response;
+  console.log("TokenJwt");
+  console.log(TokenJwt);
 
+  return TokenJwt;
+
+  // const tokenSoffid = await axios({
+  //   method: 'post',
+  //   url: 'https://idp.jaguar-ep.com/token',
+  //   headers: {
+  //     'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   data: 'grant_type=authorization_code&code='+code
+  // })
+  // .then((response) => {
+  //   const resp = JSON.stringify(response.data);
+  //   console.log("Nueva respuesta");
+  //   console.log(resp);
+  //   return resp;
+  // })
+  // .catch((error) => {
+  //   console.log("Error nuevo");
+  //   console.log(error.message);
+  //   return error.message;
+  // });
+
+  // return tokenSoffid;
+
+  // axios({
+  //     method: 'post',
+  //     url: 'https://idp.jaguar-ep.com/token',
+  //     headers: {
+  //       'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     },
+  //     data: 'grant_type=authorization_code&code='+code
+  //   })
+  //   .then((response) => {
+  //     const resp = JSON.stringify(response.data);
+  //         console.log("Nueva respuesta");
+  //         console.log(resp);
+  //         console.log("Despues de la resp");
+  //         return resp;
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error nuevo");
+  //     console.log(error);
+  //     console.log("Despues del error");
+  //     return error;
+  //   });
 }
