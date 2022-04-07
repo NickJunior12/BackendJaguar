@@ -55,7 +55,7 @@ const GetToken = (code) => __awaiter(void 0, void 0, void 0, function* () {
             'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: 'grant_type=authorization_code&code=' + code
+        data: 'grant_type=authorization_code&code=' + encodeURIComponent(code)
     })
         .then((response) => {
         const resp = JSON.stringify(response.data);
