@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetToken = exports.TokenSoffid = exports.ConnetSoffid = void 0;
+exports.GetToken = exports.GetUserInfo = exports.TokenSoffid = exports.ConnetSoffid = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const axios_1 = __importDefault(require("axios"));
 const ConnetSoffid = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,6 +47,31 @@ const TokenSoffid = () => __awaiter(void 0, void 0, void 0, function* () {
     return response;
 });
 exports.TokenSoffid = TokenSoffid;
+const GetUserInfo = (token) => __awaiter(void 0, void 0, void 0, function* () {
+    const NombreUsuario = yield (0, axios_1.default)({
+        method: 'get',
+        url: 'https://idp.jaguar-ep.com/userinfo',
+        headers: {
+            'Authorization': 'Bearer ' + encodeURIComponent(token),
+            'Accept': 'application/json'
+        }
+    })
+        .then((response) => {
+        const resp = JSON.stringify(response.data);
+        console.log("Nombre de usuario");
+        console.log(resp);
+        return resp;
+    })
+        .catch((error) => {
+        console.log("Error nuevo");
+        console.log(error);
+        return error;
+    });
+    console.log("Nombre de Usuario");
+    console.log(NombreUsuario);
+    return NombreUsuario;
+});
+exports.GetUserInfo = GetUserInfo;
 const GetToken = (code) => __awaiter(void 0, void 0, void 0, function* () {
     const TokenJwt = yield (0, axios_1.default)({
         method: 'post',

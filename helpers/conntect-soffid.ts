@@ -45,6 +45,34 @@ export const TokenSoffid = async() => {
   return response;
 }
 
+export const GetUserInfo = async(token: string) =>{
+
+  const NombreUsuario = await axios({
+    method: 'get',
+    url: 'https://idp.jaguar-ep.com/userinfo',
+    headers: {
+      'Authorization': 'Bearer ' + encodeURIComponent(token),
+      'Accept': 'application/json'
+    }
+  })
+  .then((response) => {
+    const resp = JSON.stringify(response.data);
+        console.log("Nombre de usuario");
+        console.log(resp);
+        return resp;
+  })
+  .catch((error) => {
+    console.log("Error nuevo");
+    console.log(error);
+    return error;
+  });
+
+  console.log("Nombre de Usuario");
+  console.log(NombreUsuario);
+
+  return NombreUsuario;
+}
+
 export const GetToken = async (code:string) => {
 
 

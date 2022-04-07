@@ -1,5 +1,5 @@
 import { Request, response, Response } from "express";
-import { ConnetSoffid, GetToken, TokenSoffid } from '../helpers/conntect-soffid';
+import { ConnetSoffid, GetToken, TokenSoffid, GetUserInfo } from '../helpers/conntect-soffid';
 import axios from "axios";
 
 export const ConnectSoffidPaso1 = async( req: Request, res: Response) =>{
@@ -35,5 +35,17 @@ export const Token = async( req: Request, res: Response) => {
 
     // res.json({resp});
 
+
+}
+
+export const UserInfo = async( req: Request, res: Response) => {
+    
+    const { body } = req;
+    console.log('Se recibe el code: '+body.token);
+
+    // tslint:disable-next-line:no-shadowed-variable
+    GetUserInfo(body.token).then((response)=>{
+        console.log("Ya recibi el nombre de usuario en el controlador: "+response);res.json({response});
+    });
 
 }

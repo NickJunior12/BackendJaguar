@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Token = exports.AuthSoffid = exports.ConnectSoffidPaso1 = void 0;
+exports.UserInfo = exports.Token = exports.AuthSoffid = exports.ConnectSoffidPaso1 = void 0;
 const conntect_soffid_1 = require("../helpers/conntect-soffid");
 const ConnectSoffidPaso1 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = yield (0, conntect_soffid_1.ConnetSoffid)();
@@ -36,4 +36,14 @@ const Token = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // res.json({resp});
 });
 exports.Token = Token;
+const UserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log('Se recibe el code: ' + body.token);
+    // tslint:disable-next-line:no-shadowed-variable
+    (0, conntect_soffid_1.GetUserInfo)(body.token).then((response) => {
+        console.log("Ya recibi el nombre de usuario en el controlador: " + response);
+        res.json({ response });
+    });
+});
+exports.UserInfo = UserInfo;
 //# sourceMappingURL=soffid-controllers.js.map
