@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserInfo = exports.Token = exports.AuthSoffid = exports.ConnectSoffidPaso1 = void 0;
+exports.RevokeToken = exports.UserInfo = exports.Token = exports.AuthSoffid = exports.ConnectSoffidPaso1 = void 0;
 const conntect_soffid_1 = require("../helpers/conntect-soffid");
 const ConnectSoffidPaso1 = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = yield (0, conntect_soffid_1.ConnetSoffid)();
@@ -31,9 +31,6 @@ const Token = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log("Ya recibi en controller: " + response);
         res.json({ response });
     });
-    // console.log("Resp Controller");
-    // console.log(resp);
-    // res.json({resp});
 });
 exports.Token = Token;
 const UserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -46,4 +43,12 @@ const UserInfo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.UserInfo = UserInfo;
+const RevokeToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    console.log('Se recibe el token a revocar: ' + body.token);
+    (0, conntect_soffid_1.Revoke)(body.token).then(response => {
+        res.json({ response });
+    });
+});
+exports.RevokeToken = RevokeToken;
 //# sourceMappingURL=soffid-controllers.js.map

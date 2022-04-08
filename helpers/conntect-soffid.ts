@@ -74,8 +74,6 @@ export const GetUserInfo = async(token: string) =>{
 }
 
 export const GetToken = async (code:string) => {
-
-
   const TokenJwt = await axios({
     method: 'post',
     url: 'https://idp.jaguar-ep.com/token',
@@ -104,49 +102,31 @@ export const GetToken = async (code:string) => {
 
   return TokenJwt;
 
-  // const tokenSoffid = await axios({
-  //   method: 'post',
-  //   url: 'https://idp.jaguar-ep.com/token',
-  //   headers: {
-  //     'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
-  //     'Content-Type': 'application/x-www-form-urlencoded'
-  //   },
-  //   data: 'grant_type=authorization_code&code='+code
-  // })
-  // .then((response) => {
-  //   const resp = JSON.stringify(response.data);
-  //   console.log("Nueva respuesta");
-  //   console.log(resp);
-  //   return resp;
-  // })
-  // .catch((error) => {
-  //   console.log("Error nuevo");
-  //   console.log(error.message);
-  //   return error.message;
-  // });
+}
 
-  // return tokenSoffid;
+export const Revoke = async (token:string) => {
+  const RespRevoke = await axios({
+    method: 'post',
+    url: 'https://idp.jaguar-ep.com/revoke',
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: 'token_type_hint= access_token&token='+encodeURIComponent(token)
+  })
+  .then((response) => {
+     console.log(response);
+     console.log(response.status);
+        return "OK";
+  })
+  .catch((error) => {
+    console.log(error);
+    return "BAD";
+  });
 
-  // axios({
-  //     method: 'post',
-  //     url: 'https://idp.jaguar-ep.com/token',
-  //     headers: {
-  //       'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     },
-  //     data: 'grant_type=authorization_code&code='+code
-  //   })
-  //   .then((response) => {
-  //     const resp = JSON.stringify(response.data);
-  //         console.log("Nueva respuesta");
-  //         console.log(resp);
-  //         console.log("Despues de la resp");
-  //         return resp;
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error nuevo");
-  //     console.log(error);
-  //     console.log("Despues del error");
-  //     return error;
-  //   });
+  console.log(RespRevoke);
+
+  return RespRevoke;
+
 }

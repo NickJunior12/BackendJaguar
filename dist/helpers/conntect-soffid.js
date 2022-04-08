@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetToken = exports.GetUserInfo = exports.TokenSoffid = exports.ConnetSoffid = void 0;
+exports.Revoke = exports.GetToken = exports.GetUserInfo = exports.TokenSoffid = exports.ConnetSoffid = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 const axios_1 = __importDefault(require("axios"));
 const ConnetSoffid = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -98,49 +98,29 @@ const GetToken = (code) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("TokenJwt");
     console.log(TokenJwt);
     return TokenJwt;
-    // const tokenSoffid = await axios({
-    //   method: 'post',
-    //   url: 'https://idp.jaguar-ep.com/token',
-    //   headers: {
-    //     'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data: 'grant_type=authorization_code&code='+code
-    // })
-    // .then((response) => {
-    //   const resp = JSON.stringify(response.data);
-    //   console.log("Nueva respuesta");
-    //   console.log(resp);
-    //   return resp;
-    // })
-    // .catch((error) => {
-    //   console.log("Error nuevo");
-    //   console.log(error.message);
-    //   return error.message;
-    // });
-    // return tokenSoffid;
-    // axios({
-    //     method: 'post',
-    //     url: 'https://idp.jaguar-ep.com/token',
-    //     headers: {
-    //       'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
-    //       'Content-Type': 'application/x-www-form-urlencoded'
-    //     },
-    //     data: 'grant_type=authorization_code&code='+code
-    //   })
-    //   .then((response) => {
-    //     const resp = JSON.stringify(response.data);
-    //         console.log("Nueva respuesta");
-    //         console.log(resp);
-    //         console.log("Despues de la resp");
-    //         return resp;
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error nuevo");
-    //     console.log(error);
-    //     console.log("Despues del error");
-    //     return error;
-    //   });
 });
 exports.GetToken = GetToken;
+const Revoke = (token) => __awaiter(void 0, void 0, void 0, function* () {
+    const RespRevoke = yield (0, axios_1.default)({
+        method: 'post',
+        url: 'https://idp.jaguar-ep.com/revoke',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Basic aHVuYmVoLmphZ3Vhci1lcC5jb206S2lvbDQ3NjI=',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: 'token_type_hint= access_token&token=' + encodeURIComponent(token)
+    })
+        .then((response) => {
+        console.log(response);
+        return "OK";
+    })
+        .catch((error) => {
+        console.log(error);
+        return "BAD";
+    });
+    console.log(RespRevoke);
+    return RespRevoke;
+});
+exports.Revoke = Revoke;
 //# sourceMappingURL=conntect-soffid.js.map

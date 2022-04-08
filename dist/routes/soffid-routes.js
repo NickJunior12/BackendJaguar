@@ -7,5 +7,6 @@ router.get('/', soffid_controllers_1.ConnectSoffidPaso1);
 router.post('/auth', soffid_controllers_1.AuthSoffid);
 router.post('/token', soffid_controllers_1.Token);
 router.post('/userinfo', soffid_controllers_1.UserInfo);
+router.post('/revoke', soffid_controllers_1.RevokeToken);
 exports.default = router;
 //# sourceMappingURL=soffid-routes.js.map
