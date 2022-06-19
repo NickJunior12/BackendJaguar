@@ -83,7 +83,34 @@ console.log(noticia);
         }
 
         await noticia.update( body );
+
         res.json(noticia);
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ msg: 'Comuniquese con el administrador'});
+    }
+}
+
+export const borrarNoticia = async( req: Request, res: Response) =>{
+
+    const {id} =req.params;
+
+    try{
+        const noticia = await Noticia.findByPk(id);
+console.log(noticia);
+        if( !noticia ){
+            return res.status(404).json({
+                msg:'No existe la noticia'
+            })
+        }
+
+        //await noticia.destroy();
+
+        await noticia.update({activado:0});
+        res.json({
+            msg: 'Noticia eliminada, satisfactoriamente',
+
+        });
     }catch(error){
         console.log(error);
         res.status(500).json({ msg: 'Comuniquese con el administrador'});

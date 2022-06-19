@@ -74,7 +74,7 @@ export const uploadBanner = async( req: Request, res: Response) => {
 
       try{
 
-console.log(req.files.bannerImg);
+          console.log(req.files.bannerImg);
           const nombreImagen = await SubirBanner( req.files, 'uploadsBanners' );
 
           const bannerBody = {

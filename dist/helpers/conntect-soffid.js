@@ -113,6 +113,7 @@ const Revoke = (token) => __awaiter(void 0, void 0, void 0, function* () {
     })
         .then((response) => {
         console.log(response);
+        console.log(response.status);
         return "OK";
     })
         .catch((error) => {

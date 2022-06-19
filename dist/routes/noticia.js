@@ -9,5 +9,6 @@ router.post('/', noticias_1.nuevaNoticia);
 router.post('/actualizarnoticia/:id', noticias_1.actualizarNoticia);
 router.post('/login', noticias_1.login);
 router.post('/buscador', noticias_1.findNoticiaText);
+router.delete('/:id', noticias_1.borrarNoticia);
 exports.default = router;
 //# sourceMappingURL=noticia.js.map

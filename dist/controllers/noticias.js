@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.actualizarNoticia = exports.nuevaNoticia = exports.findNoticiaText = exports.getNoticia = exports.getNoticias = void 0;
+exports.login = exports.borrarNoticia = exports.actualizarNoticia = exports.nuevaNoticia = exports.findNoticiaText = exports.getNoticia = exports.getNoticias = void 0;
 const notis_1 = __importDefault(require("../models/notis"));
 const user_model_1 = __importDefault(require("../models/user-model"));
 const sequelize_1 = require("sequelize");
@@ -89,6 +89,28 @@ const actualizarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.actualizarNoticia = actualizarNoticia;
+const borrarNoticia = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const noticia = yield notis_1.default.findByPk(id);
+        console.log(noticia);
+        if (!noticia) {
+            return res.status(404).json({
+                msg: 'No existe la noticia'
+            });
+        }
+        //await noticia.destroy();
+        yield noticia.update({ activado: 0 });
+        res.json({
+            msg: 'Noticia eliminada, satisfactoriamente',
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Comuniquese con el administrador' });
+    }
+});
+exports.borrarNoticia = borrarNoticia;
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
