@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.SubirBanner = exports.BorrarImagenCloudinary = exports.BorrarImagen = exports.SubirArchivo = void 0;
+exports.SubirBeneficioCloudinary = exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.BorrarImagenCloudinary = exports.BorrarImagen = exports.SubirBanner = exports.SubirArchivo = void 0;
 var path_1 = require("path");
 var uuid_1 = require("uuid");
 var fs_1 = require("fs");
@@ -69,6 +69,29 @@ var SubirArchivo = function (id, files, carpeta) {
     });
 };
 exports.SubirArchivo = SubirArchivo;
+var SubirBanner = function (files, carpeta) {
+    if (carpeta === void 0) { carpeta = ''; }
+    return new Promise(function (resolve, reject) {
+        var bannerImg = files.bannerImg;
+        var nombreCortado = bannerImg.name.split('.');
+        var extension = nombreCortado[nombreCortado.length - 1];
+        var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
+        if (!extensionesValidas.includes(extension)) {
+            reject("La extensi\u00F3n ".concat(extension, " no es v\u00E1lida, permitidas ").concat(extensionesValidas));
+        }
+        var nombreTempo = (0, uuid_1.v4)() + '.' + extension;
+        var uploadPath = path_1["default"].join(__dirname, '../../public/', carpeta, '/', nombreTempo);
+        console.log(__dirname);
+        console.log(uploadPath);
+        bannerImg.mv(uploadPath, function (err) {
+            if (err) {
+                reject(err);
+            }
+            resolve(nombreTempo);
+        });
+    });
+};
+exports.SubirBanner = SubirBanner;
 var BorrarImagen = function (nombre, carpeta) {
     if (carpeta === void 0) { carpeta = ''; }
     return new Promise(function (resolve, reject) {
@@ -94,29 +117,6 @@ var BorrarImagenCloudinary = function (nombreBanner) { return __awaiter(void 0, 
     });
 }); };
 exports.BorrarImagenCloudinary = BorrarImagenCloudinary;
-var SubirBanner = function (files, carpeta) {
-    if (carpeta === void 0) { carpeta = ''; }
-    return new Promise(function (resolve, reject) {
-        var bannerImg = files.bannerImg;
-        var nombreCortado = bannerImg.name.split('.');
-        var extension = nombreCortado[nombreCortado.length - 1];
-        var extensionesValidas = ['png', 'jpg', 'gif', 'jpeg'];
-        if (!extensionesValidas.includes(extension)) {
-            reject("La extensi\u00F3n ".concat(extension, " no es v\u00E1lida, permitidas ").concat(extensionesValidas));
-        }
-        var nombreTempo = (0, uuid_1.v4)() + '.' + extension;
-        var uploadPath = path_1["default"].join(__dirname, '../../public/', carpeta, '/', nombreTempo);
-        console.log(__dirname);
-        console.log(uploadPath);
-        bannerImg.mv(uploadPath, function (err) {
-            if (err) {
-                reject(err);
-            }
-            resolve(nombreTempo);
-        });
-    });
-};
-exports.SubirBanner = SubirBanner;
 var SubirBannerCloudinary = function (files, carpeta) {
     if (carpeta === void 0) { carpeta = ''; }
     return __awaiter(void 0, void 0, void 0, function () {
@@ -154,3 +154,20 @@ var SubirNoticiaCloudinary = function (files) { return __awaiter(void 0, void 0,
     });
 }); };
 exports.SubirNoticiaCloudinary = SubirNoticiaCloudinary;
+/** Métodos para Beneficios */
+var SubirBeneficioCloudinary = function (files) { return __awaiter(void 0, void 0, void 0, function () {
+    var beneficioImagen, tempPath, secure_url;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                beneficioImagen = files.beneficioImagen;
+                tempPath = beneficioImagen.tempFilePath;
+                return [4 /*yield*/, cloudinary.uploader.upload(tempPath)];
+            case 1:
+                secure_url = (_a.sent()).secure_url;
+                return [2 /*return*/, secure_url];
+        }
+    });
+}); };
+exports.SubirBeneficioCloudinary = SubirBeneficioCloudinary;
+/***************************** */ 

@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const beneficios_1 = require("../controllers/beneficios");
+const router = (0, express_1.Router)();
+router.get('/', beneficios_1.getBeneficios);
+router.get('/:id', beneficios_1.getBeneficio);
+router.post('/', beneficios_1.nuevoBeneficio);
+router.post('/actualizarnoticia/:id', beneficios_1.actualizarBeneficio);
+router.post('/buscador', beneficios_1.findBeneficioText);
+router.delete('/:id', beneficios_1.borrarBeneficio);
+exports.default = router;
+//# sourceMappingURL=beneficios.js.map

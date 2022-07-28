@@ -36,12 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.login = exports.borrarNoticia = exports.actualizarNoticia = exports.nuevaNoticia = exports.findNoticiaText = exports.getNoticia = exports.getNoticias = void 0;
+exports.borrarBeneficio = exports.actualizarBeneficio = exports.nuevoBeneficio = exports.findBeneficioText = exports.getBeneficio = exports.getBeneficios = void 0;
 var notis_1 = require("../models/notis");
-var user_model_1 = require("../models/user-model");
 var sequelize_1 = require("sequelize");
-var getNoticias = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var notis;
+var getBeneficios = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var bene;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, notis_1["default"].findAll({
@@ -53,35 +52,35 @@ var getNoticias = function (req, res) { return __awaiter(void 0, void 0, void 0,
                     ]
                 })];
             case 1:
-                notis = _a.sent();
-                res.json({ notis: notis });
+                bene = _a.sent();
+                res.json({ bene: bene });
                 return [2 /*return*/];
         }
     });
 }); };
-exports.getNoticias = getNoticias;
-var getNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, notis;
+exports.getBeneficios = getBeneficios;
+var getBeneficio = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, bene;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 id = req.params.id;
                 return [4 /*yield*/, notis_1["default"].findByPk(id)];
             case 1:
-                notis = _a.sent();
-                if (notis) {
-                    res.json({ notis: notis });
+                bene = _a.sent();
+                if (bene) {
+                    res.json({ bene: bene });
                 }
                 else {
-                    res.status(404).json({ msg: "No existe la noticia con ese id ".concat(id) });
+                    res.status(404).json({ msg: "No existe el beneficio con ese id ".concat(id) });
                 }
                 return [2 /*return*/];
         }
     });
 }); };
-exports.getNoticia = getNoticia;
-var findNoticiaText = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, notis;
+exports.getBeneficio = getBeneficio;
+var findBeneficioText = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, bene;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -95,20 +94,20 @@ var findNoticiaText = function (req, res) { return __awaiter(void 0, void 0, voi
                         }
                     })];
             case 1:
-                notis = _b.sent();
-                if (notis) {
-                    res.json({ notis: notis });
+                bene = _b.sent();
+                if (bene) {
+                    res.json({ bene: bene });
                 }
                 else {
-                    res.status(404).json({ msg: "No existe la noticia con el texto buscado ".concat(body.buscador) });
+                    res.status(404).json({ msg: "No existe el beneficio con el texto buscado ".concat(body.buscador) });
                 }
                 return [2 /*return*/];
         }
     });
 }); };
-exports.findNoticiaText = findNoticiaText;
-var nuevaNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, noticia, error_1;
+exports.findBeneficioText = findBeneficioText;
+var nuevoBeneficio = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, beneficio, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -116,11 +115,11 @@ var nuevaNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                noticia = notis_1["default"].build(body);
-                return [4 /*yield*/, noticia.save()];
+                beneficio = notis_1["default"].build(body);
+                return [4 /*yield*/, beneficio.save()];
             case 2:
                 _a.sent();
-                res.json(noticia);
+                res.json(beneficio);
                 return [3 /*break*/, 4];
             case 3:
                 error_1 = _a.sent();
@@ -131,9 +130,9 @@ var nuevaNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
-exports.nuevaNoticia = nuevaNoticia;
-var actualizarNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, body, noticia, error_2;
+exports.nuevoBeneficio = nuevoBeneficio;
+var actualizarBeneficio = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, body, beneficio, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -144,17 +143,16 @@ var actualizarNoticia = function (req, res) { return __awaiter(void 0, void 0, v
                 _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, notis_1["default"].findByPk(id)];
             case 2:
-                noticia = _a.sent();
-                console.log(noticia);
-                if (!noticia) {
+                beneficio = _a.sent();
+                if (!beneficio) {
                     return [2 /*return*/, res.status(404).json({
-                            msg: 'No existe la noticia'
+                            msg: 'No existe 3l beneficio'
                         })];
                 }
-                return [4 /*yield*/, noticia.update(body)];
+                return [4 /*yield*/, beneficio.update(body)];
             case 3:
                 _a.sent();
-                res.json(noticia);
+                res.json(beneficio);
                 return [3 /*break*/, 5];
             case 4:
                 error_2 = _a.sent();
@@ -165,9 +163,9 @@ var actualizarNoticia = function (req, res) { return __awaiter(void 0, void 0, v
         }
     });
 }); };
-exports.actualizarNoticia = actualizarNoticia;
-var borrarNoticia = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, noticia, error_3;
+exports.actualizarBeneficio = actualizarBeneficio;
+var borrarBeneficio = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, beneficio, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -177,20 +175,17 @@ var borrarNoticia = function (req, res) { return __awaiter(void 0, void 0, void 
                 _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, notis_1["default"].findByPk(id)];
             case 2:
-                noticia = _a.sent();
-                console.log(noticia);
-                if (!noticia) {
+                beneficio = _a.sent();
+                if (!beneficio) {
                     return [2 /*return*/, res.status(404).json({
-                            msg: 'No existe la noticia'
+                            msg: 'No existe el beneficio'
                         })];
                 }
-                //await noticia.destroy();
-                return [4 /*yield*/, noticia.update({ activado: 0 })];
+                return [4 /*yield*/, beneficio.update({ activado: 0 })];
             case 3:
-                //await noticia.destroy();
                 _a.sent();
                 res.json({
-                    msg: 'Noticia eliminada, satisfactoriamente'
+                    msg: 'Beneficio eliminado, satisfactoriamente'
                 });
                 return [3 /*break*/, 5];
             case 4:
@@ -202,44 +197,4 @@ var borrarNoticia = function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
-exports.borrarNoticia = borrarNoticia;
-var login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, user, error_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                body = req.body;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, user_model_1["default"].findAll({
-                        where: {
-                            usuario: body.usuario,
-                            pass: body.pass,
-                            activado: 1
-                        }
-                    })];
-            case 2:
-                user = _a.sent();
-                if (user.length === 0) {
-                    res.status(500).json({
-                        valido: false,
-                        msg: 'El usuario y/o contraseña son erroneos'
-                    });
-                }
-                res.json({
-                    valido: 1,
-                    msg: 'Usuario validado',
-                    user: user
-                });
-                return [3 /*break*/, 4];
-            case 3:
-                error_4 = _a.sent();
-                console.log(error_4);
-                res.status(500).json({ msg: 'Comuniquese con el administrador ' + error_4 });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-exports.login = login;
+exports.borrarBeneficio = borrarBeneficio;

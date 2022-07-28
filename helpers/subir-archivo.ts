@@ -35,32 +35,6 @@ console.log(uploadPath);
     });
 }
 
-export const BorrarImagen = (nombre: string, carpeta = '') =>{
-
-    return new Promise( (resolve, reject) => {
-    const pathBorrar = path.join(__dirname, '../../public/',carpeta,'/', nombre);
-    console.log(pathBorrar);
-    if( fs.existsSync(pathBorrar) ){
-        console.log('si existe y voy a borrarlo');
-        fs.unlinkSync( pathBorrar );
-    }
-        resolve(pathBorrar);
-    });
-
-}
-
-export const BorrarImagenCloudinary=async(nombreBanner: string)=>{
-
-    const nombre = nombreBanner.split('/');
-    const nom = nombre[nombre.length-1];
-    const [ public_id ] = nom.split('.');
-
-    console.log(public_id);
-
-    cloudinary.uploader.destroy(public_id);
-
-}
-
 export const SubirBanner = (files: any, carpeta = '' ) => {
 
     return new Promise( (resolve, reject) => {
@@ -88,9 +62,33 @@ export const SubirBanner = (files: any, carpeta = '' ) => {
     });
 }
 
+export const BorrarImagen = (nombre: string, carpeta = '') =>{
+
+    return new Promise( (resolve, reject) => {
+    const pathBorrar = path.join(__dirname, '../../public/',carpeta,'/', nombre);
+    console.log(pathBorrar);
+    if( fs.existsSync(pathBorrar) ){
+        console.log('si existe y voy a borrarlo');
+        fs.unlinkSync( pathBorrar );
+    }
+        resolve(pathBorrar);
+    });
+
+}
+
+export const BorrarImagenCloudinary=async(nombreBanner: string)=>{
+
+    const nombre = nombreBanner.split('/');
+    const nom = nombre[nombre.length-1];
+    const [ public_id ] = nom.split('.');
+
+    console.log(public_id);
+
+    cloudinary.uploader.destroy(public_id);
+
+}
+
 export const SubirBannerCloudinary = async (files: any, carpeta = '' ) => {
-
-
 
         const{ bannerImg } = files;
         console.log(bannerImg);
@@ -106,8 +104,6 @@ export const SubirBannerCloudinary = async (files: any, carpeta = '' ) => {
 
 export const SubirNoticiaCloudinary = async (files: any ) => {
 
-
-
     const{ noticiaImagen } = files;
     
     const tempPath = noticiaImagen.tempFilePath;
@@ -118,3 +114,20 @@ export const SubirNoticiaCloudinary = async (files: any ) => {
     return secure_url;
 
 }
+
+/** Métodos para Beneficios */
+
+export const SubirBeneficioCloudinary = async (files: any ) => {
+
+    const{ beneficioImagen } = files;
+    
+    const tempPath = beneficioImagen.tempFilePath;
+    
+    const {secure_url} = await cloudinary.uploader.upload(tempPath);
+    
+   
+    return secure_url;
+
+}
+
+/***************************** */

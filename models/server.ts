@@ -1,11 +1,12 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-import fileUpload from 'express-fileupload'
+import fileUpload from 'express-fileupload';
 
 import * as noticiasRoutes from '../routes/noticia';
 import * as usuariosRoutes from '../routes/user-routes';
 import * as uploadsRoutes from '../routes/upload-routes';
 import * as soffidRoutes from '../routes/soffid-routes';
+import * as beneficiosRoutes from '../routes/beneficios';
 
 import db from '../db/connection';
 
@@ -17,7 +18,8 @@ class Server {
         noticias: '/api/nots',
         users: '/api/users',
         uploads: '/api/uploads',
-        soffid: '/api/soffid'
+        soffid: '/api/soffid',
+        beneficios: '/api/beneficios'
     }
 
     constructor() {
@@ -60,7 +62,8 @@ class Server {
         this.app.use( this.apis.noticias, noticiasRoutes.default ),
         this.app.use( this.apis.users, usuariosRoutes.default ),
         this.app.use( this.apis.uploads, uploadsRoutes.default ),
-        this.app.use( this.apis.soffid, soffidRoutes.default)
+        this.app.use( this.apis.soffid, soffidRoutes.default),
+        this.app.use( this.apis.beneficios, beneficiosRoutes.default)
     }
 
     listen() {

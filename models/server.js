@@ -42,13 +42,17 @@ var express_fileupload_1 = require("express-fileupload");
 var noticiasRoutes = require("../routes/noticia");
 var usuariosRoutes = require("../routes/user-routes");
 var uploadsRoutes = require("../routes/upload-routes");
+var soffidRoutes = require("../routes/soffid-routes");
+var beneficiosRoutes = require("../routes/beneficios");
 var connection_1 = require("../db/connection");
 var Server = /** @class */ (function () {
     function Server() {
         this.apis = {
             noticias: '/api/nots',
             users: '/api/users',
-            uploads: '/api/uploads'
+            uploads: '/api/uploads',
+            soffid: '/api/soffid',
+            beneficios: '/api/beneficios'
         };
         this.app = (0, express_1["default"])();
         this.port = process.env.PORT || '8000';
@@ -89,7 +93,9 @@ var Server = /** @class */ (function () {
     Server.prototype.routes = function () {
         this.app.use(this.apis.noticias, noticiasRoutes["default"]),
             this.app.use(this.apis.users, usuariosRoutes["default"]),
-            this.app.use(this.apis.uploads, uploadsRoutes["default"]);
+            this.app.use(this.apis.uploads, uploadsRoutes["default"]),
+            this.app.use(this.apis.soffid, soffidRoutes["default"]),
+            this.app.use(this.apis.beneficios, beneficiosRoutes["default"]);
     };
     Server.prototype.listen = function () {
         var _this = this;

@@ -1,0 +1,11 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var soffid_controllers_1 = require("../controllers/soffid-controllers");
+var router = (0, express_1.Router)();
+router.get('/', soffid_controllers_1.ConnectSoffidPaso1);
+router.post('/auth', soffid_controllers_1.AuthSoffid);
+router.post('/token', soffid_controllers_1.Token);
+router.post('/userinfo', soffid_controllers_1.UserInfo);
+router.post('/revoke', soffid_controllers_1.RevokeToken);
+exports["default"] = router;
