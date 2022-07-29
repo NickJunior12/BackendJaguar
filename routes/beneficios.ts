@@ -6,7 +6,7 @@ const router = Router();
 router.get('/', getBeneficios);
 router.get('/:id', getBeneficio);
 router.post('/', nuevoBeneficio);
-router.post('/actualizarnoticia/:id', actualizarBeneficio);
+router.post('/actualizarBeneficio/:id', actualizarBeneficio);
 router.post('/buscador', findBeneficioText);
 router.delete('/:id', borrarBeneficio);
 
