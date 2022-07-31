@@ -73,6 +73,7 @@ export const actualizarBeneficio = async( req: Request, res: Response) =>{
     const {body} = req;
 
     console.log("entre");
+    console.log(body);
     // res.json("{resp: 'ok'}");
     try{
         const beneficio = await Beneficio.findByPk(id);
