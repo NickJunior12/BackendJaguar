@@ -71,14 +71,19 @@ exports.nuevoBeneficio = nuevoBeneficio;
 const actualizarBeneficio = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
+    console.log("entre");
+    // res.json("{resp: 'ok'}");
     try {
         const beneficio = yield beneficios_1.default.findByPk(id);
+        console.log(beneficio);
         if (!beneficio) {
             return res.status(404).json({
-                msg: 'No existe 3l beneficio'
+                msg: 'No existe el beneficio'
             });
         }
+        console.log("Pase el if, esta bien el beneficio");
         yield beneficio.update(body);
+        console.log("Actualizo correctamente el beneficio");
         res.json(beneficio);
     }
     catch (error) {

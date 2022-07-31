@@ -72,17 +72,19 @@ export const actualizarBeneficio = async( req: Request, res: Response) =>{
     const {id} =req.params;
     const {body} = req;
 
+    console.log("entre");
+    // res.json("{resp: 'ok'}");
     try{
         const beneficio = await Beneficio.findByPk(id);
-
+        console.log(beneficio);
         if( !beneficio ){
             return res.status(404).json({
-                msg:'No existe 3l beneficio'
+                msg:'No existe el beneficio'
             })
         }
-
+        console.log("Pase el if, esta bien el beneficio");
         await beneficio.update( body );
-
+        console.log("Actualizo correctamente el beneficio");
         res.json(beneficio);
     }catch(error){
         console.log(error);
