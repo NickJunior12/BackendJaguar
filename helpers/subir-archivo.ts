@@ -114,3 +114,16 @@ export const SubirNoticiaCloudinary = async (files: any ) => {
     return secure_url;
 
 }
+
+export const SubirBeneficioCloudinary = async (files: any ) => {
+
+    const{ beneficioImg } = files;
+    
+    const tempPath = beneficioImg.tempFilePath;
+    
+    const {secure_url} = await cloudinary.uploader.upload(tempPath);
+    
+   
+    return secure_url;
+
+}

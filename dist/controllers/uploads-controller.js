@@ -147,7 +147,7 @@ const uploadBeneficioCloudinary = (req, res) => __awaiter(void 0, void 0, void 0
                 msg: 'No existe la noticia'
             });
         }
-        const nombreImagen = yield (0, subir_archivo_1.SubirNoticiaCloudinary)(req.files);
+        const nombreImagen = yield (0, subir_archivo_1.SubirBeneficioCloudinary)(req.files);
         const bodyUpdate = {
             imagen: nombreImagen,
             id

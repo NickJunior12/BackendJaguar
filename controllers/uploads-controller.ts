@@ -1,6 +1,6 @@
 import { Request, response, Response } from "express";
 import fileUpload from 'express-fileupload';
-import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary, BorrarImagenCloudinary } from '../helpers/subir-archivo';
+import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary, BorrarImagenCloudinary, SubirBeneficioCloudinary } from '../helpers/subir-archivo';
 import Noticia from '../models/notis';
 import Banner from '../models/banner-model';
 import Beneficio from '../models/beneficios';
@@ -172,7 +172,7 @@ export const uploadBeneficioCloudinary = async( req: Request, res: Response) => 
           })
       }
 
-        const nombreImagen = await SubirNoticiaCloudinary( req.files );
+        const nombreImagen = await SubirBeneficioCloudinary( req.files );
         
         const bodyUpdate = {
           imagen: nombreImagen,
