@@ -158,7 +158,7 @@ export const uploadBeneficioCloudinary = async( req: Request, res: Response) => 
 
   const {id} =req.params;
 
-    if (!req.files || Object.keys(req.files).length === 0 || !req.files.noticiaImagen) {
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.beneficioImagen) {
       return res.status(400).json('No hay archivos para subir.');
     }
 
