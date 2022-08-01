@@ -136,7 +136,7 @@ const uploadBannerCloudinary = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.uploadBannerCloudinary = uploadBannerCloudinary;
 const uploadBeneficioCloudinary = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    if (!req.files || Object.keys(req.files).length === 0 || !req.files.beneficioImagen) {
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.beneficioImg) {
         return res.status(400).json('No hay archivos para subir.');
     }
     try {
