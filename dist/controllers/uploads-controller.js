@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.borrarBannersCloudinary = exports.borrarBanners = exports.getBanners = exports.uploadBannerCloudinary = exports.uploadNoticiaCloudinary = exports.uploadBanner = exports.uploadNoticia = void 0;
+exports.borrarBannersCloudinary = exports.borrarBanners = exports.getBanners = exports.uploadBeneficioCloudinary = exports.uploadBannerCloudinary = exports.uploadNoticiaCloudinary = exports.uploadBanner = exports.uploadNoticia = void 0;
 const subir_archivo_1 = require("../helpers/subir-archivo");
 const notis_1 = __importDefault(require("../models/notis"));
 const banner_model_1 = __importDefault(require("../models/banner-model"));
+const beneficios_1 = __importDefault(require("../models/beneficios"));
 // export const mostrarImagen = async( req: Request, res: Response)=> {
 //     const {id} =req.params;
 //     try{
@@ -133,6 +134,32 @@ const uploadBannerCloudinary = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.uploadBannerCloudinary = uploadBannerCloudinary;
+const uploadBeneficioCloudinary = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.noticiaImagen) {
+        return res.status(400).json('No hay archivos para subir.');
+    }
+    try {
+        const beneficio = yield beneficios_1.default.findByPk(id);
+        console.log(beneficio);
+        if (!beneficio) {
+            return res.status(404).json({
+                msg: 'No existe la noticia'
+            });
+        }
+        const nombreImagen = yield (0, subir_archivo_1.SubirNoticiaCloudinary)(req.files);
+        const bodyUpdate = {
+            imagen: nombreImagen,
+            id
+        };
+        yield beneficio.update(bodyUpdate);
+        res.json({ msg: nombreImagen, msg2: beneficio });
+    }
+    catch (msg) {
+        res.status(400).json(msg);
+    }
+});
+exports.uploadBeneficioCloudinary = uploadBeneficioCloudinary;
 const getBanners = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const banners = yield banner_model_1.default.findAll({
         where: {

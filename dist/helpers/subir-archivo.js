@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubirBeneficioCloudinary = exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.BorrarImagenCloudinary = exports.BorrarImagen = exports.SubirBanner = exports.SubirArchivo = void 0;
+exports.SubirNoticiaCloudinary = exports.SubirBannerCloudinary = exports.BorrarImagenCloudinary = exports.BorrarImagen = exports.SubirBanner = exports.SubirArchivo = void 0;
 const path_1 = __importDefault(require("path"));
 const uuid_1 = require("uuid");
 const fs_1 = __importDefault(require("fs"));
@@ -104,13 +104,4 @@ const SubirNoticiaCloudinary = (files) => __awaiter(void 0, void 0, void 0, func
     return secure_url;
 });
 exports.SubirNoticiaCloudinary = SubirNoticiaCloudinary;
-/** Métodos para Beneficios */
-const SubirBeneficioCloudinary = (files) => __awaiter(void 0, void 0, void 0, function* () {
-    const { beneficioImagen } = files;
-    const tempPath = beneficioImagen.tempFilePath;
-    const { secure_url } = yield cloudinary.uploader.upload(tempPath);
-    return secure_url;
-});
-exports.SubirBeneficioCloudinary = SubirBeneficioCloudinary;
-/***************************** */ 
 //# sourceMappingURL=subir-archivo.js.map

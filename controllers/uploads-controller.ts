@@ -3,6 +3,7 @@ import fileUpload from 'express-fileupload';
 import { SubirArchivo, SubirBanner, BorrarImagen, SubirBannerCloudinary, SubirNoticiaCloudinary, BorrarImagenCloudinary } from '../helpers/subir-archivo';
 import Noticia from '../models/notis';
 import Banner from '../models/banner-model';
+import Beneficio from '../models/beneficios';
 
 
 
@@ -151,6 +152,39 @@ export const uploadBannerCloudinary = async( req: Request, res: Response) => {
   }catch(msg){
       res.status(400).json(msg);
   }
+}
+
+export const uploadBeneficioCloudinary = async( req: Request, res: Response) => {
+
+  const {id} =req.params;
+
+    if (!req.files || Object.keys(req.files).length === 0 || !req.files.noticiaImagen) {
+      return res.status(400).json('No hay archivos para subir.');
+    }
+
+    try{
+      const beneficio = await Beneficio.findByPk(id);
+      console.log(beneficio);
+
+      if( !beneficio ){
+          return res.status(404).json({
+              msg:'No existe la noticia'
+          })
+      }
+
+        const nombreImagen = await SubirNoticiaCloudinary( req.files );
+        
+        const bodyUpdate = {
+          imagen: nombreImagen,
+          id
+          }
+
+       await beneficio.update( bodyUpdate );
+        res.json({ msg: nombreImagen, msg2: beneficio });
+
+    }catch(msg){
+        res.status(400).json(msg);
+    }
 }
 
 export const getBanners = async( req: Request, res: Response) =>{

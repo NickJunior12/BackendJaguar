@@ -114,20 +114,3 @@ export const SubirNoticiaCloudinary = async (files: any ) => {
     return secure_url;
 
 }
-
-/** Métodos para Beneficios */
-
-export const SubirBeneficioCloudinary = async (files: any ) => {
-
-    const{ beneficioImagen } = files;
-    
-    const tempPath = beneficioImagen.tempFilePath;
-    
-    const {secure_url} = await cloudinary.uploader.upload(tempPath);
-    
-   
-    return secure_url;
-
-}
-
-/***************************** */

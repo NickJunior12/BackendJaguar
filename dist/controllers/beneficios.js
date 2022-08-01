@@ -72,6 +72,7 @@ const actualizarBeneficio = (req, res) => __awaiter(void 0, void 0, void 0, func
     const { id } = req.params;
     const { body } = req;
     console.log("entre");
+    console.log(body);
     // res.json("{resp: 'ok'}");
     try {
         const beneficio = yield beneficios_1.default.findByPk(id);
