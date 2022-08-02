@@ -6,7 +6,7 @@ export const ConnetSoffid = async () =>{
 
     const response = await fetch('https://api.github.com/users/github');
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     return data;
 }
@@ -17,8 +17,8 @@ export const TokenSoffid = async() => {
   const buff = Buffer.from(str, 'utf-8');
   const base64 = buff.toString('base64');
 
-  console.log('validamos el base 64 de usuario y contrasenia');
-  console.log(base64);
+  // console.log('validamos el base 64 de usuario y contrasenia');
+  // console.log(base64);
 
   // 'grant_type=authorization_code&code=1Zf7O3A2/7HF0wZ3EKgDnPqeDZmDzLhM4WCh4Kb5YvAkpOT+'
 
@@ -30,17 +30,17 @@ export const TokenSoffid = async() => {
     body: 'grant_type=authorization_code&code=urqEnPHeKW6LVRQGvxgU8t0TfwEhjx4mKEdvY+68dQX7ZSoY'
     });
 
-  console.log('Obtención del response directo del servicio');
-  console.log(response);
+  // console.log('Obtención del response directo del servicio');
+  // console.log(response);
 
-  console.log('Response body');
-  console.log(response.body);
+  // console.log('Response body');
+  // console.log(response.body);
 
-  console.log('Response header');
-  console.log(response.headers);
+  // console.log('Response header');
+  // console.log(response.headers);
 
-  console.log('Response status');
-  console.log(response.status);
+  // console.log('Response status');
+  // console.log(response.status);
 
   return response;
 }
@@ -57,8 +57,8 @@ export const GetUserInfo = async(token: string) =>{
   })
   .then((response) => {
     const resp = JSON.stringify(response.data);
-        console.log("Nombre de usuario");
-        console.log(resp);
+        // console.log("Nombre de usuario");
+        // console.log(resp);
         return resp;
   })
   .catch((error) => {
@@ -67,8 +67,8 @@ export const GetUserInfo = async(token: string) =>{
     return error;
   });
 
-  console.log("Nombre de Usuario");
-  console.log(NombreUsuario);
+  // console.log("Nombre de Usuario");
+  // console.log(NombreUsuario);
 
   return NombreUsuario;
 }
@@ -85,9 +85,9 @@ export const GetToken = async (code:string) => {
   })
   .then((response) => {
     const resp = JSON.stringify(response.data);
-        console.log("Nueva respuesta");
-        console.log(resp);
-        console.log("Despues de la resp");
+        // console.log("Nueva respuesta");
+        // console.log(resp);
+        // console.log("Despues de la resp");
         return resp;
   })
   .catch((error) => {
@@ -116,8 +116,8 @@ export const Revoke = async (token:string) => {
     data: 'token_type_hint= access_token&token='+encodeURIComponent(token)
   })
   .then((response) => {
-     console.log(response);
-     console.log(response.status);
+    //  console.log(response);
+    //  console.log(response.status);
         return "OK";
   })
   .catch((error) => {
@@ -125,7 +125,7 @@ export const Revoke = async (token:string) => {
     return "BAD";
   });
 
-  console.log(RespRevoke);
+  // console.log(RespRevoke);
 
   return RespRevoke;
 

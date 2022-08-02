@@ -8,7 +8,8 @@ const Beneficio = db.define('Beneficios',{
     titulo: { type: DataTypes.STRING},
     descripcion: { type: DataTypes.STRING},
     activado:{ type: DataTypes.INTEGER},
-    imagen: {type: DataTypes.STRING}
+    imagen: {type: DataTypes.STRING},
+    documento: {type: DataTypes.STRING}
 })
 
 export default Beneficio;

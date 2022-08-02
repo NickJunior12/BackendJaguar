@@ -10,7 +10,8 @@ const Beneficio = connection_1.default.define('Beneficios', {
     titulo: { type: sequelize_1.DataTypes.STRING },
     descripcion: { type: sequelize_1.DataTypes.STRING },
     activado: { type: sequelize_1.DataTypes.INTEGER },
-    imagen: { type: sequelize_1.DataTypes.STRING }
+    imagen: { type: sequelize_1.DataTypes.STRING },
+    documento: { type: sequelize_1.DataTypes.STRING }
 });
 exports.default = Beneficio;
 //# sourceMappingURL=beneficios.js.map

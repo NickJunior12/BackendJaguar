@@ -82,7 +82,7 @@ export const BorrarImagenCloudinary=async(nombreBanner: string)=>{
     const nom = nombre[nombre.length-1];
     const [ public_id ] = nom.split('.');
 
-    console.log(public_id);
+    // console.log(public_id);
 
     cloudinary.uploader.destroy(public_id);
 
@@ -91,12 +91,12 @@ export const BorrarImagenCloudinary=async(nombreBanner: string)=>{
 export const SubirBannerCloudinary = async (files: any, carpeta = '' ) => {
 
         const{ bannerImg } = files;
-        console.log(bannerImg);
+        // console.log(bannerImg);
         const tempPath = bannerImg.tempFilePath;
-        console.log(tempPath);
+        // console.log(tempPath);
         const {secure_url} = await cloudinary.uploader.upload(tempPath);
-        console.log('imprimir respuesta de cloudinary');
-        console.log(secure_url);
+        // console.log('imprimir respuesta de cloudinary');
+        // console.log(secure_url);
        
         return secure_url;
     

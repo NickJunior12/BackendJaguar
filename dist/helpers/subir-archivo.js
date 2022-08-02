@@ -82,18 +82,18 @@ const BorrarImagenCloudinary = (nombreBanner) => __awaiter(void 0, void 0, void 
     const nombre = nombreBanner.split('/');
     const nom = nombre[nombre.length - 1];
     const [public_id] = nom.split('.');
-    console.log(public_id);
+    // console.log(public_id);
     cloudinary.uploader.destroy(public_id);
 });
 exports.BorrarImagenCloudinary = BorrarImagenCloudinary;
 const SubirBannerCloudinary = (files, carpeta = '') => __awaiter(void 0, void 0, void 0, function* () {
     const { bannerImg } = files;
-    console.log(bannerImg);
+    // console.log(bannerImg);
     const tempPath = bannerImg.tempFilePath;
-    console.log(tempPath);
+    // console.log(tempPath);
     const { secure_url } = yield cloudinary.uploader.upload(tempPath);
-    console.log('imprimir respuesta de cloudinary');
-    console.log(secure_url);
+    // console.log('imprimir respuesta de cloudinary');
+    // console.log(secure_url);
     return secure_url;
 });
 exports.SubirBannerCloudinary = SubirBannerCloudinary;
