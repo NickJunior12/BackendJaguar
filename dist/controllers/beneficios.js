@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.borrarBeneficio = exports.actualizarBeneficio = exports.nuevoBeneficio = exports.findBeneficioText = exports.getBeneficio = exports.getBeneficios = void 0;
+exports.borrarDocumento = exports.actualizarDocumento = exports.nuevoDocumento = exports.getDocumentos = exports.borrarBeneficio = exports.actualizarBeneficio = exports.nuevoBeneficio = exports.findBeneficioText = exports.getBeneficio = exports.getBeneficios = void 0;
 const beneficios_1 = __importDefault(require("../models/beneficios"));
 const sequelize_1 = require("sequelize");
+const documento_beneficio_model_1 = __importDefault(require("../models/documento-beneficio-model"));
 const getBeneficios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bene = yield beneficios_1.default.findAll({
         where: {
@@ -82,7 +83,6 @@ const actualizarBeneficio = (req, res) => __awaiter(void 0, void 0, void 0, func
                 msg: 'No existe el beneficio'
             });
         }
-        console.log("Pase el if, esta bien el beneficio");
         yield beneficio.update(body);
         console.log("Actualizo correctamente el beneficio");
         res.json(beneficio);
@@ -113,4 +113,73 @@ const borrarBeneficio = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.borrarBeneficio = borrarBeneficio;
+const getDocumentos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const docs = yield documento_beneficio_model_1.default.findAll({
+        where: {
+            id_beneficio: id,
+            activado: 1
+        },
+        order: [
+            ['id', 'DESC']
+        ]
+    });
+    res.json({ docs });
+});
+exports.getDocumentos = getDocumentos;
+const nuevoDocumento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { body } = req;
+    try {
+        const doc = documento_beneficio_model_1.default.build(body);
+        yield doc.save();
+        res.json(doc);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Comuniquese con el administrador' });
+    }
+});
+exports.nuevoDocumento = nuevoDocumento;
+const actualizarDocumento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const { body } = req;
+    // res.json("{resp: 'ok'}");
+    try {
+        const beneficio = yield documento_beneficio_model_1.default.findByPk(id);
+        console.log(beneficio);
+        if (!beneficio) {
+            return res.status(404).json({
+                msg: 'No existe el documento'
+            });
+        }
+        yield beneficio.update(body);
+        console.log("Actualizo correctamente el documento");
+        res.json(beneficio);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Comuniquese con el administrador' });
+    }
+});
+exports.actualizarDocumento = actualizarDocumento;
+const borrarDocumento = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const beneficio = yield documento_beneficio_model_1.default.findByPk(id);
+        if (!beneficio) {
+            return res.status(404).json({
+                msg: 'No existe el documento'
+            });
+        }
+        yield beneficio.update({ activado: 0 });
+        res.json({
+            msg: 'documento eliminado, satisfactoriamente',
+        });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: 'Comuniquese con el administrador' });
+    }
+});
+exports.borrarDocumento = borrarDocumento;
 //# sourceMappingURL=beneficios.js.map
