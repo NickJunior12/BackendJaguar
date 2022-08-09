@@ -10,7 +10,7 @@ router.post('/actualizarBeneficio/:id', beneficios_1.actualizarBeneficio);
 router.post('/buscador', beneficios_1.findBeneficioText);
 router.delete('/:id', beneficios_1.borrarBeneficio);
 router.get('/documentos/:id', beneficios_1.getDocumentos);
-router.post('documentos', beneficios_1.nuevoDocumento);
+router.post('/documentos', beneficios_1.nuevoDocumento);
 router.post('/documentos/update/:id', beneficios_1.actualizarDocumento);
 router.delete('/documentos/borrado/:id', beneficios_1.borrarDocumento);
 exports.default = router;
