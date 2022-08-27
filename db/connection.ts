@@ -1,13 +1,12 @@
 import { Sequelize } from 'sequelize';
 
-// const db = new Sequelize('jaguardb','root','123456', {
-//     host: 'localhost',
-//     port: 3306,
-//     dialect: 'mysql'
+const baseProd = 'u117119134_jaguardb';
+const usuarioProd = 'u117119134_jaguaradmin';
 
-// })
+const baseQA = 'u117119134_jaguardbqa';
+const usuarioQA = 'u117119134_jaguarqa';
 
-const db = new Sequelize('u117119134_jaguardb','u117119134_jaguaradmin','Mexico2021', {
+const db = new Sequelize(baseProd,usuarioProd,'Mexico2021', {
     host: 'sql441.main-hosting.eu',
     port: 3306,
     dialect: 'mysql'
